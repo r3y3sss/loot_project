@@ -4,6 +4,7 @@ module com.example.loot_proyect {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires java.compiler;
 
     opens com.example.loot_proyect to javafx.fxml;
     exports com.example.loot_proyect;
