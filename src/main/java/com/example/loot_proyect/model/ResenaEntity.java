@@ -1,4 +1,4 @@
 package com.example.loot_proyect.model;
 
-public class direccion {
+public class ResenaEntity {
 }

@@ -1,11 +1,17 @@
 module com.example.loot_proyect {
+
     requires javafx.controls;
     requires javafx.fxml;
 
-    requires org.controlsfx.controls;
-    requires org.kordamp.bootstrapfx.core;
-    requires java.compiler;
+    requires org.hibernate.orm.core;
+    requires jakarta.persistence;
 
     opens com.example.loot_proyect to javafx.fxml;
+
+    opens com.example.loot_proyect.model
+            to javafx.fxml,
+            org.hibernate.orm.core;
+
     exports com.example.loot_proyect;
+    exports com.example.loot_proyect.model;
 }
