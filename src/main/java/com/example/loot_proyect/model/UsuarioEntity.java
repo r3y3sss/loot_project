@@ -3,7 +3,6 @@ package com.example.loot_proyect.model;
 import java.time.LocalDate;
 import java.util.List;
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table( name = "usuarios" )
@@ -11,11 +10,11 @@ public class UsuarioEntity {
     private int id_usuario;
     private String correo;
     private String nombre;
-    private LocalDate fechaNacimiento;
-    private String apellidoP;
-    private String apellidoM;
+    private LocalDate fecha_nacimiento;
+    private String apellido_p;
+    private String apellido_m;
     private String contrasena;
-    private String numTelefono;
+    private String num_telefono;
     private DireccionEntity direccionEntity;
 
 
@@ -23,13 +22,13 @@ public class UsuarioEntity {
     public UsuarioEntity(){
     }
 
-    public UsuarioEntity(String correo, String nombre , LocalDate fechaNacimiento, String apellidoP, String apellidoM, String contraseña, String numTelefono){
+    public UsuarioEntity(String correo, String nombre , LocalDate fecha_nacimiento, String apellido_p, String apellido_m, String contraseña, String num_telefono){
         this.correo = correo;
         this.nombre = nombre;
-        this.apellidoP = apellidoP;
-        this.apellidoM = apellidoM;
+        this.apellido_p = apellido_p;
+        this.apellido_m = apellido_m;
         this.contrasena = contrasena;
-        this.numTelefono = numTelefono;
+        this.num_telefono = num_telefono;
     }
 
     @Id
@@ -44,20 +43,20 @@ public class UsuarioEntity {
     public String getNombre(){return nombre;}
     public void setNombre(String nombre){this.nombre = nombre;}
 
-    public LocalDate getFechaNacimiento() {return fechaNacimiento;}
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {this.fechaNacimiento = fechaNacimiento;}
+    public LocalDate getFecha_nacimiento() {return fecha_nacimiento;}
+    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {this.fecha_nacimiento = fecha_nacimiento;}
 
-    public String getApellidoP() {return apellidoP;}
-    public void setApellidoP(String ApellidoP){this.apellidoP = apellidoP;}
+    public String getApellido_p() {return apellido_p;}
+    public void setApellido_p(String apellido_p){this.apellido_p = apellido_p;}
 
-    public String getApellidoM() {return apellidoM;}
-    public void setApellidoM(String apellidoM) {this.apellidoM = apellidoM;}
+    public String getApellido_m() {return apellido_m;}
+    public void setApellido_m(String apellido_m) {this.apellido_m = apellido_m;}
 
     public String getContraseña() {return contrasena;}
     public void setContraseña(String contraseña) {this.contrasena = contraseña;}
 
-    public String getNumTelefono() {return numTelefono;}
-    public void setNumTelefono(String numTelefono) {this.numTelefono = numTelefono;}
+    public String getNumTelefono() {return num_telefono;}
+    public void setNumTelefono(String numTelefono) {this.num_telefono = numTelefono;}
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "direcciones_id_direccion", referencedColumnName = "id_direccion")
@@ -69,5 +68,5 @@ public class UsuarioEntity {
         this.direccionEntity = direccionEntity;
     }
     @OneToMany(mappedBy = "usuario")
-    private List<ResenasEntity> resenas;
+    private List<ResenaEntity> resenas;
 }
