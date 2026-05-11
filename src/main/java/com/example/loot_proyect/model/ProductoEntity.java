@@ -32,13 +32,18 @@ public class ProductoEntity {
     public void setPrecio(float precio){this.precio = precio;}
 
     public String getImg(){return img;}
-    public void setImg(){this.img = img;}
+    public void setImg(String img){this.img = img;}
+
+    private UsuarioEntity usuario;
+    private CategoriaEntity categoria;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private UsuarioEntity usuario;
+    public UsuarioEntity getUsuario(){return usuario;}
+    public void setUsuario(UsuarioEntity usuario) {this.usuario = usuario;}
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    private CategoriaEntity categoria;
+    public CategoriaEntity getCategoria(){return categoria;}
+    public void setCategoria(CategoriaEntity categoria) {this.categoria = categoria;}
 }

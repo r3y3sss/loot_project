@@ -35,7 +35,26 @@ public class VentaEntity {
     public double getPrecio_venta(){return precio_venta;}
     public void setPrecio_venta(double precio_venta){this.precio_venta = precio_venta;}
 
+    private UsuarioEntity usuario;
+    private ProductoEntity producto;
+
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private UsuarioEntity  usuario;
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "id_producto")
+    public ProductoEntity getProducto() {
+        return producto;
+    }
+
+    public void setProducto(ProductoEntity producto) {
+        this.producto = producto;
+    }
 }

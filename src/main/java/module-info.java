@@ -5,6 +5,7 @@ module com.example.loot_proyect {
 
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
+    requires java.sql;
 
     opens com.example.loot_proyect to javafx.fxml;
 

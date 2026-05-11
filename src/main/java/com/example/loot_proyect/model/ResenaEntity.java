@@ -24,7 +24,9 @@ public class ResenaEntity {
     public String getUsuario_resena() {return usuario_resena;}
     public void setUsuario_resena(String usuario_resena) {this.usuario_resena = usuario_resena;}
 
+    private UsuarioEntity usuario;
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private UsuarioEntity usuario;
+    public UsuarioEntity getUsuario(){return usuario;}
+    public void setUsuario(UsuarioEntity usuario) {this.usuario = usuario;}
 }
