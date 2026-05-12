@@ -1,4 +1,4 @@
-package com.example.loot_proyect.utils.Repository;
+package com.example.loot_proyect.Repository;
 
 import com.example.loot_proyect.model.ProductoEntity;
 import com.example.loot_proyect.utils.HibernateUtils;
@@ -33,13 +33,14 @@ public class ProductoRepository {
         entityManager.getTransaction().begin();
         entityManager.merge(Producto);
         entityManager.getTransaction().commit();
-
+        entityManager.close();
     }
+
     public List<ProductoEntity> buscarProductos() {
         EntityManagerFactory entityManagerFactory = HibernateUtils.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        List<ProductoEntity> lista =entityManager.createQuery("from ProductoEntity").getResultList();
+        List<ProductoEntity> lista=entityManager.createQuery("from ProductoEntity").getResultList();
         entityManager.close();
         return lista;
     }
@@ -50,6 +51,5 @@ public class ProductoRepository {
         entityManager.close();
         return productoEntity;
     }
-
 }
 
