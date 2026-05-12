@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="600.0">
+         <children>
+            <Button layoutX="375.0" layoutY="27.0" mnemonicParsing="false" text="Compra" />
+            <Button layoutX="453.0" layoutY="27.0" mnemonicParsing="false" text="Venta" />
+            <Button layoutX="518.0" layoutY="27.0" mnemonicParsing="false" text="Perfil" />
+            <Label layoutX="101.0" layoutY="53.0" text="Producto" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Downloads/WhatsApp%20Image%202026-03-09%20at%208.39.09%20PM.jpeg" />
+               </image>
+            </ImageView>
+            <Label layoutX="18.0" layoutY="284.0" text="Descripcion:" />
+            <Label layoutX="18.0" layoutY="256.0" text="Precio:" />
+            <Label layoutX="18.0" layoutY="363.0" text="Reseñas:" />
+            <ImageView fitHeight="84.0" fitWidth="36.0" layoutX="385.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Downloads/WhatsApp%20Image%202026-03-09%20at%208.39.09%20PM.jpeg" />
+               </image>
+            </ImageView>
+            <Label layoutX="353.0" layoutY="202.0" text="Vendedor:" />
+            <Label layoutX="354.0" layoutY="265.0" text="Nombre vendedor" />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
