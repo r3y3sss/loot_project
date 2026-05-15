@@ -52,8 +52,8 @@ public class UsuarioEntity {
     public String getApellido_m() {return apellido_m;}
     public void setApellido_m(String apellido_m) {this.apellido_m = apellido_m;}
 
-    public String getContraseña() {return contrasena;}
-    public void setContraseña(String contraseña) {this.contrasena = contraseña;}
+    public String getContrasena() {return contrasena;}
+    public void setContrasena(String contrasena) {this.contrasena = contrasena;}
 
     public String getNumTelefono() {return num_telefono;}
     public void setNumTelefono(String numTelefono) {this.num_telefono = numTelefono;}
