@@ -1,4 +1,4 @@
-package com.example.loot_proyect.utils.Repository;
+package com.example.loot_proyect.Repository;
 
 import com.example.loot_proyect.model.DireccionEntity;
 import com.example.loot_proyect.utils.HibernateUtils;
@@ -10,35 +10,84 @@ import java.util.List;
 
 public class DireccionRepository {
 
-    public List<DireccionEntity> buscarDirecciones(int idDireccion) {
-        EntityManagerFactory entityManagerFactory = HibernateUtils.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<DireccionEntity> direcciones = entityManager.createQuery("from DireccionEntity").getResultList();
-        entityManager.close();
-        return direcciones;
+    public void buscarDirecciones(DireccionEntity direccion, int idDireccion) {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+
+        try {
+            entityManager.getTransaction().begin();
+            DireccionEntity direccionEntity = entityManager.find(DireccionEntity.class, idDireccion);
+            entityManager.getTransaction().commit();
+
+        }catch (Exception ex) {
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
+        } finally {
+            entityManager.close();
+
+        }
+
+
     }
+
     public void agregarDireccion(DireccionEntity direccion) {
-        EntityManagerFactory entityManagerFactory = HibernateUtils.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(direccion);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            if (direccion != null) {
+                entityManager.persist(direccion);
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
+        } finally {
+            entityManager.close();
+        }
     }
-    public void actualizarDireccion(DireccionEntity direccion) {
-        EntityManagerFactory entityManagerFactory = HibernateUtils.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.merge(direccion);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-    }
+
+
+
+        public void ActualizarDireccion(DireccionEntity direccion, int idDireccion) {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+
+        try{
+            entityManager.getTransaction().begin();
+            DireccionEntity direccionActual = entityManager.find(DireccionEntity.class, idDireccion);
+
+            if(direccionActual != null){
+                direccionActual.setCalle(direccion.getCalle());
+                direccionActual.setEstado(direccion.getEstado());
+                direccionActual.setCp(direccion.getCp());
+                direccionActual.setColonia(direccion.getColonia());
+                direccionActual.setMunicipio(direccion.getMunicipio());
+                entityManager.getTransaction().commit();
+            }
+
+        }catch(Exception ex){
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
+
+        } finally {
+            entityManager.close();
+        }
+
+        }
+
     public void eliminarDireccion(DireccionEntity direccion) {
-        EntityManagerFactory entityManagerFactory = HibernateUtils.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.remove(direccion);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+
+        try {
+            entityManager.getTransaction().begin();
+            DireccionEntity eliminarDir = entityManager.merge(direccion);
+            entityManager.remove(eliminarDir);
+            entityManager.getTransaction().commit();
+        }catch (Exception ex){
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
+
+        } finally {
+            entityManager.close();
+        }
     }
 }
