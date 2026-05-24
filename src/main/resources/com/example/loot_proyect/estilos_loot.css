@@ -1,0 +1,93 @@
+
+
+.root, .fondo-azul {
+    -fx-background-color: #5AD2F4;
+}
+
+.label {
+    -fx-text-fill: #0F172A;
+    -fx-font-family: "System";
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-border-color: #0F172A;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 12px;
+}
+.text-field:focused {
+    -fx-border-width: 2px;
+    -fx-background-color: #F8FAFC;
+}
+
+.boton-loot {
+    -fx-background-color: #0F172A;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 24px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+.boton-loot:hover {
+    -fx-background-color: #1E293B;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+.boton-loot:pressed {
+    -fx-scale-x: 0.95;
+    -fx-background-color: #000000;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: rgba(15, 23, 42, 0.1);
+    -fx-border-color: transparent;
+    -fx-background-radius: 10px;
+}
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #0F172A;
+    -fx-background-radius: 10px;
+}
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #1E293B;
+}
+
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
