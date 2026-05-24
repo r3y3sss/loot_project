@@ -3,6 +3,7 @@ package com.example.loot_proyect.Repository;
 import com.example.loot_proyect.model.UsuarioEntity;
 import com.example.loot_proyect.utils.HibernateUtils;
 import jakarta.persistence.EntityManager;
+import java.util.List;
 
 public class UsuarioRepository {
 
@@ -11,73 +12,66 @@ public class UsuarioRepository {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(usuario);
-        }catch(Exception e) {}
-    }
-    public void eliminarUsuario(UsuarioEntity usuario) {
-
-        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
-        entityManager.getTransaction().begin();
-        try{
-            usuario = entityManager.find(UsuarioEntity.class, usuario.getId());
             entityManager.getTransaction().commit();
-
-           if (usuario != null) {
-               entityManager.remove(usuario);
-           }else {
-            entityManager.merge(usuario);
-           }
-
-        }catch (Exception ex){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
-        }finally {
+            System.err.println("Error al agregar usuario: " + e.getMessage());
+        } finally {
             entityManager.close();
         }
     }
+
     public void actualizarUsuario(UsuarioEntity usuario) {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
-        try{
+        try {
             entityManager.getTransaction().begin();
             entityManager.merge(usuario);
             entityManager.getTransaction().commit();
-
-        }catch(Exception ex){
-            if(entityManager.getTransaction().isActive()){
-                entityManager.getTransaction().rollback();
-            }
-            System.err.println("Error al actualizar el usuario "+ex.getMessage());
-            ex.printStackTrace();
-
-        }finally{
-            if(entityManager != null && entityManager.isOpen()){
-                entityManager.close();
-            }
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            System.err.println("Error al actualizar usuario: " + e.getMessage());
+        } finally {
+            entityManager.close();
         }
-
     }
 
-    public UsuarioEntity buscarUsuario(UsuarioEntity usuario) {
+    public UsuarioEntity buscarCorreo(String correo) {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
-        UsuarioEntity usuarioEncontrado = null;
-
         try {
-            usuarioEncontrado = entityManager.find(UsuarioEntity.class, usuario.getId());
-            if (usuarioEncontrado != null) {
-                if(usuarioEncontrado.getDireccionEntity() != null){
-                    usuarioEncontrado.getDireccionEntity().hashCode();
-                }
-            }
-
-        } catch (Exception ex) {
-            System.err.println("Error al buscar el usuario"+ex.getMessage());
-            ex.printStackTrace();
-
-        }finally {
-            if (entityManager != null && entityManager.isOpen()) {
-                entityManager.close();
-            }
+            return entityManager.createQuery(
+                            "SELECT u FROM UsuarioEntity u WHERE u.correo = :correo", UsuarioEntity.class)
+                    .setParameter("correo", correo)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            entityManager.close();
         }
-
-        return usuarioEncontrado;
     }
 
+    public UsuarioEntity buscarUsuario(int id) {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        try {
+            return entityManager.find(UsuarioEntity.class, id);
+        } catch (Exception e) {
+            System.err.println("Error al buscar usuario: " + e.getMessage());
+            return null;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public List<UsuarioEntity> getAllUsuarios() {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        try {
+            return entityManager.createQuery(
+                            "SELECT u FROM UsuarioEntity u", UsuarioEntity.class)
+                    .getResultList();
+        } catch (Exception e) {
+            System.err.println("Error al obtener usuarios: " + e.getMessage());
+            return null;
+        } finally {
+            entityManager.close();
+        }
+    }
 }

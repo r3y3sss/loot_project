@@ -1,4 +1,4 @@
-package Dtos;
+package com.example.loot_proyect.Dtos;
 
 import java.time.LocalDate;
 

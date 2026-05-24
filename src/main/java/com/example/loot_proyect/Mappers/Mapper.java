@@ -1,15 +1,8 @@
-package Mappers;
+package com.example.loot_proyect.Mappers;
 
-import Dtos.CategoriaDTO;
-import com.example.loot_proyect.model.CategoriaEntity;
-import Dtos.DireccionDTO;
-import com.example.loot_proyect.model.DireccionEntity;
-import Dtos.ProductoDTO;
-import com.example.loot_proyect.model.ProductoEntity;
-import Dtos.UsuarioDTO;
-import com.example.loot_proyect.model.UsuarioEntity;
-import Dtos.VentaDTO;
-import com.example.loot_proyect.model.VentaEntity;
+import com.example.loot_proyect.Dtos.*;
+import com.example.loot_proyect.model.*;
+
 
 public class Mapper {
     public static CategoriaDTO toCategoriaDTO(CategoriaEntity entity) {
@@ -73,10 +66,10 @@ public class Mapper {
 
             return entity;
         }
-    public static UsuarioDTO toUsuarioDTO (UsuarioEntity entity){
+    public static UsuarioConsultaDTO toUsuarioDTO (UsuarioEntity entity){
         if (entity == null) return null;
 
-        return new UsuarioDTO(
+        return new UsuarioConsultaDTO(
                 entity.getId_usuario(),
                 entity.getCorreo(),
                 entity.getNombre(),
@@ -87,7 +80,7 @@ public class Mapper {
                 entity.getNumTelefono()
         );
         }
-    public static UsuarioEntity toUsuarioEntity (UsuarioDTO dto){
+    public static UsuarioEntity toUsuarioEntity (UsuarioConsultaDTO dto){
         if (dto == null) return null;
 
         UsuarioEntity entity = new UsuarioEntity();
@@ -119,6 +112,20 @@ public class Mapper {
         entity.setCantidad_producto(dto.cantidad_producto());
         entity.setPrecio_venta(dto.precio_venta());
 
+        return entity;
+    }
+
+    public static UsuarioEntity toUsuarioEntity(UsuarioRegistroDTO dto) {
+        if (dto == null) return null;
+
+        UsuarioEntity entity = new UsuarioEntity();
+        entity.setCorreo(dto.correo());
+        entity.setNombre(dto.nombre());
+        entity.setFecha_nacimiento(dto.fecha_nacimiento());
+        entity.setApellido_p(dto.apellido_p());
+        entity.setApellido_m(dto.apellido_m());
+        entity.setContrasena(dto.contrasena());
+        entity.setNumTelefono(dto.num_telefono());
         return entity;
     }
 }

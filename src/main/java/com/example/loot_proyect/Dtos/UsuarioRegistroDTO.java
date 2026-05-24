@@ -2,15 +2,12 @@ package com.example.loot_proyect.Dtos;
 
 import java.time.LocalDate;
 
-public record UsuarioDTO(
-        int id_usuario,
+public record UsuarioRegistroDTO(
         String correo,
         String nombre,
-        LocalDate fecha_nacimiento,
         String apellido_p,
         String apellido_m,
         String contrasena,
-        String num_telefono)
-{}
-
-
+        String num_telefono,
+        LocalDate fecha_nacimiento
+) {}

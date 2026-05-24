@@ -34,8 +34,8 @@ public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    public int getId(){return id_usuario;}
-    private void setId(int id_usuario){this.id_usuario = id_usuario;}
+    public int getId_usuario(){return id_usuario;}
+    public void setId_usuario(int id_usuario){this.id_usuario = id_usuario;}
 
     public String getCorreo(){return correo;}
     public void setCorreo(String correo){this.correo = correo;}
