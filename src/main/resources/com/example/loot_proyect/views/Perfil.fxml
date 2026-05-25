@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #f4f4f9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loot_proyect.controllers.PerfilController">
+    <children>
+        <HBox alignment="CENTER_RIGHT" prefWidth="600.0">
+            <children>
+                <Button fx:id="btnAtras" onAction="#btnAtrasClick" style="-fx-background-color: #005088; -fx-text-fill: white;" text="Atrás" />
+            </children>
+            <padding>
+                <Insets right="30.0" top="10.0" />
+            </padding>
+        </HBox>
+
+        <Label text="PERFIL DE USUARIO" style="-fx-font-weight: bold;">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+
+        <GridPane hgap="15.0" vgap="15.0" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" minWidth="120.0" />
+                <ColumnConstraints halignment="LEFT" minWidth="250.0" />
+            </columnConstraints>
+
+            <children>
+                <Label text="Correo:" GridPane.rowIndex="0" />
+                <TextField fx:id="txtCorreoPerfil" editable="false" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Nombre Completo:" GridPane.rowIndex="1" />
+                <TextField fx:id="txtNombrePerfil" editable="false" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Teléfono:" GridPane.rowIndex="2" />
+                <TextField fx:id="txtTelefonoPerfil" editable="false" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+        </GridPane>
+
+        <VBox alignment="CENTER" spacing="15.0">
+            <children>
+                <Button onAction="#btnEditarClick" prefWidth="150.0" styleClass="boton-loot" text="Editar Usuario" />
+                <Button onAction="#btnCerrarSesionClick" prefWidth="150.0" style="-fx-background-color: #ffcdd2; -fx-text-fill: #c62828;" text="Cerrar Sesión" />
+            </children>
+            <padding>
+                <Insets top="20.0" />
+            </padding>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="20.0" />
+    </padding>
+</VBox>
