@@ -44,22 +44,34 @@ public class Mapper {
         return entity;
     }
 
-        public static ProductoDTO toProductoDTO(ProductoEntity entity) {
-            if (entity == null) return null;
+    public static ProductoDTO toProductoDTO(ProductoEntity entity) {
+        if (entity == null) return null;
 
-            return new ProductoDTO(
-                    entity.getId_producto(),
-                    entity.getDescripcion(),
-                    entity.getPrecio(),
-                    entity.getImg()
-            );
+        String nombreVendedor = "";
+        String telefonoVendedor = "";
+
+        if (entity.getUsuario() != null) {
+            nombreVendedor = entity.getUsuario().getNombre() + " " + entity.getUsuario().getApellido_p();
+            telefonoVendedor = entity.getUsuario().getNumTelefono();
         }
+
+        return new ProductoDTO(
+                entity.getId_producto(),
+                entity.getNombre(),
+                entity.getDescripcion(),
+                entity.getPrecio(),
+                entity.getImg(),
+                nombreVendedor,
+                telefonoVendedor
+        );
+    }
 
         public static ProductoEntity toProductoEntity(ProductoDTO dto) {
             if (dto == null) return null;
 
             ProductoEntity entity = new ProductoEntity();
             entity.setId_producto(dto.id_producto());
+            entity.setNombre(dto.nombre());
             entity.setDescripcion(dto.descripcion());
             entity.setPrecio(dto.precio());
             entity.setImg(dto.img());
@@ -121,7 +133,6 @@ public class Mapper {
         UsuarioEntity entity = new UsuarioEntity();
         entity.setCorreo(dto.correo());
         entity.setNombre(dto.nombre());
-        entity.setFecha_nacimiento(dto.fecha_nacimiento());
         entity.setApellido_p(dto.apellido_p());
         entity.setApellido_m(dto.apellido_m());
         entity.setContrasena(dto.contrasena());

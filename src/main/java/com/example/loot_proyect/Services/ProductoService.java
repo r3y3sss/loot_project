@@ -1,8 +1,8 @@
-package Service;
+package com.example.loot_proyect.Services;
 
 import com.example.loot_proyect.Repository.ProductoRepository;
-import Mappers.Mapper;
-import Dtos.ProductoDTO;
+import com.example.loot_proyect.Mappers.Mapper;
+import com.example.loot_proyect.Dtos.ProductoDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -12,4 +12,37 @@ public class VentaRepository {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+    public void actualizarVenta(VentaEntity venta) {
+        EntityManager em = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        try {
+            em.getTransaction().begin();
+            VentaEntity ventaActual = em.find(VentaEntity.class, venta);
+            if (ventaActual != null) {
+                // actualiza los campos que necesites
+                em.merge(venta);
+            }
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (em.getTransaction().isActive())
+                em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void eliminarVenta(VentaEntity venta) {
+        EntityManager em = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        try {
+            em.getTransaction().begin();
+            VentaEntity eliminar = em.merge(venta);
+            em.remove(eliminar);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (em.getTransaction().isActive())
+                em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.loot_proyect.controllers;
 
+import com.example.loot_proyect.Dtos.UsuarioRegistroDTO;
+import com.example.loot_proyect.Services.UsuarioService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,51 +13,58 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class RegistroController {
 
     @FXML private TextField CorreoRegistro;
+    @FXML private TextField NombreRegistro;
+    @FXML private TextField ApellidoPRegistro;
+    @FXML private TextField ApellidoMRegistro;
     @FXML private PasswordField ContraseñaRegistro;
+    @FXML private PasswordField ConfirmarContraseñaRegistro;
     @FXML private TextField NumeroRegistro;
-
-    public static class Usuario {
-        public String correo;
-        public String contrasenia;
-        public String telefono;
-
-        public Usuario(String correo, String contrasenia, String telefono) {
-            this.correo = correo;
-            this.contrasenia = contrasenia;
-            this.telefono = telefono;
-        }
-    }
-
-    public static List<Usuario> listaUsuarios = new ArrayList<>();
-    public static boolean cuentaCreada = false;
+    @FXML private TextField DireccionRegistro;
+    private UsuarioService usuarioService = new UsuarioService();
 
     @FXML
     void id_confirmar(ActionEvent event) {
         String correo = CorreoRegistro.getText().trim();
+        String nombre = NombreRegistro.getText().trim();
+        String apellidoP = ApellidoPRegistro.getText().trim();
+        String apellidoM = ApellidoMRegistro.getText().trim();
         String contra = ContraseñaRegistro.getText().trim();
+        String confirmar = ConfirmarContraseñaRegistro.getText().trim();
         String telefono = NumeroRegistro.getText().trim();
+        String direccion = DireccionRegistro.getText().trim();
 
-        if (correo.isEmpty() || contra.isEmpty() || telefono.isEmpty()) {
+        if (correo.isEmpty() || nombre.isEmpty() || contra.isEmpty() || telefono.isEmpty()) {
             mostrarAlerta("Campos Vacíos", "Por favor rellena todos los campos.");
             return;
         }
 
-        listaUsuarios.add(new Usuario(correo, contra, telefono));
-        cuentaCreada = true;
+        if (!contra.equals(confirmar)) {
+            mostrarAlerta("Error", "Las contraseñas no coinciden.");
+            return;
+        }
 
-        mostrarAlerta("Éxito", "Usuario registrado correctamente.");
-        regresarAlLogin(event);
+        try {
+            UsuarioRegistroDTO registroDTO = new UsuarioRegistroDTO(
+                    correo, nombre, apellidoP, apellidoM, contra, telefono, direccion
+            );
+            usuarioService.registroUsuario(registroDTO);
+            mostrarAlerta("Éxito", "Usuario registrado correctamente.");
+            regresarAlLogin(event);
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo registrar: " + e.getMessage());
+        }
     }
 
     private void regresarAlLogin(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/loot_proyect/views/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/loot_proyect/views/login.fxml")
+            );
+            Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 600, 400));
             stage.setTitle("Marketplace - Inicio de Sesión");

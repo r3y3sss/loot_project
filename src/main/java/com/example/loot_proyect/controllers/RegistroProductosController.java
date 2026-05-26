@@ -1,5 +1,7 @@
 package com.example.loot_proyect.controllers;
 
+import com.example.loot_proyect.Dtos.ProductoDTO;
+import com.example.loot_proyect.Services.ProductoService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,8 +15,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class RegistroProductosController {
 
@@ -23,31 +23,15 @@ public class RegistroProductosController {
     @FXML private TextArea txtDescripcion;
     @FXML private ComboBox<String> cmbCategoria;
 
-    public static List<Producto> listaProductos = new ArrayList<>();
-
-    public static class Producto {
-        public String nombre;
-        public String descripcion;
-        public double precio;
-        public String categoria;
-        public String vendedor;
-
-        public Producto(String nombre, String descripcion, double precio, String categoria, String vendedor) {
-            this.nombre = nombre;
-            this.descripcion = descripcion;
-            this.precio = precio;
-            this.categoria = categoria;
-            this.vendedor = vendedor;
-        }
-    }
+    private ProductoService productoService = new ProductoService();
 
     @FXML
     public void initialize() {
         if (cmbCategoria != null) {
-            ObservableList<String> deAltas = FXCollections.observableArrayList(
+            ObservableList<String> categorias = FXCollections.observableArrayList(
                     "Electrónica", "Ropa y Calzado", "Hogar", "Videojuegos", "Otros"
             );
-            cmbCategoria.setItems(deAltas);
+            cmbCategoria.setItems(categorias);
         }
     }
 
@@ -56,25 +40,22 @@ public class RegistroProductosController {
         try {
             String nombre = txtNombre.getText().trim();
             String descripcion = txtDescripcion.getText().trim();
-            double precio = Double.parseDouble(txtPrecio.getText().trim());
-            String categoria = cmbCategoria.getValue();
+            float precio = Float.parseFloat(txtPrecio.getText().trim());
 
-            if (categoria == null || categoria.isEmpty()) {
-                categoria = "Otros";
-            }
+            ProductoDTO dto = new ProductoDTO(0,nombre, descripcion, precio, null, "", "");
+            productoService.agregarProducto(dto);
 
-            listaProductos.add(new Producto(nombre, descripcion, precio, categoria, LoginController.usuarioLogueado));
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/loot_proyect_views/Ventas.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/loot_proyect/views/Ventas.fxml")
+            );
             Parent root = loader.load();
 
             MenuVentasController controladorVentas = loader.getController();
             controladorVentas.cargarProductosRegistrados();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 800, 550);
+            stage.setScene(new Scene(root, 800, 550));
             stage.setTitle("Marketplace - Catálogo Principal");
-            stage.setScene(scene);
             stage.show();
 
         } catch (NumberFormatException e) {

@@ -1,10 +1,8 @@
 package com.example.loot_proyect.controllers;
 
+import com.example.loot_proyect.Dtos.UsuarioLoginDTO;
+import com.example.loot_proyect.Services.UsuarioService;
 import com.example.loot_proyect.model.UsuarioEntity;
-import com.example.loot_proyect.utils.HibernateUtils;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.TypedQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +20,10 @@ public class LoginController {
     @FXML private TextField ContraseñaLogin;
 
     public static String usuarioLogueado = "";
+    public static String telefonoLogueado = "";
+    public static UsuarioEntity usuarioEntity = null;
+
+    private UsuarioService usuarioService = new UsuarioService();
 
     @FXML
     void ID_INICIAR_SESION(ActionEvent event) {
@@ -34,41 +36,35 @@ public class LoginController {
         }
 
         if (correoIngresado.equals("123") && contraIngresada.equals("123")) {
-            usuarioLogueado = "123 (Admin)";
+            usuarioLogueado = "Admin";
+            telefonoLogueado = "N/A";
+            usuarioEntity = null;
             irAlCatalogo(event);
             return;
         }
 
-
-
-
-        boolean accesoConcedido = false;
-        if (RegistroController.cuentaCreada) {
-            for (RegistroController.Usuario u : RegistroController.listaUsuarios) {
-                if (u.correo.equals(correoIngresado) && u.contrasenia.equals(contraIngresada)) {
-                    usuarioLogueado = u.telefono;
-                    accesoConcedido = true;
-                    break;
-                }
-            }
-        }
-
-        if (accesoConcedido) {
+        try {
+            UsuarioLoginDTO loginDTO = new UsuarioLoginDTO(correoIngresado, contraIngresada);
+            UsuarioEntity usuario = usuarioService.login(loginDTO);
+            usuarioLogueado = usuario.getNombre() + " " + usuario.getApellido_p();
+            telefonoLogueado = usuario.getNumTelefono();
+            usuarioEntity = usuario; // ← guarda el usuario completo
             irAlCatalogo(event);
-        } else {
-            mostrarAlerta("Acceso Denegado", "Datos incorrectos o usuario no registrado.");
+        } catch (Exception e) {
+            mostrarAlerta("Acceso Denegado", e.getMessage());
         }
     }
 
     @FXML
     void NOTIENESCONTRA(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/loot_proyect/views/Registro.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/loot_proyect/views/Registro.fxml")
+            );
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 600, 420);
             stage.setTitle("Marketplace - Registro de Usuarios");
-            stage.setScene(scene);
+            stage.setScene(new Scene(root, 600, 420));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,12 +78,12 @@ public class LoginController {
 
     private void irAlCatalogo(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/loot_proyect/views/Ventas.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/loot_proyect/views/Ventas.fxml")
+            );
             Parent root = loader.load();
-
             MenuVentasController ctrl = loader.getController();
             ctrl.cargarProductosRegistrados();
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 800, 550));
             stage.setTitle("Marketplace - Catálogo Principal");

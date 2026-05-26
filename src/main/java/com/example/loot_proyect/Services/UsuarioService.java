@@ -1,11 +1,10 @@
 package com.example.loot_proyect.Services;
 
-import com.example.loot_proyect.Dtos.UsuarioDTO;
 import com.example.loot_proyect.Dtos.UsuarioLoginDTO;
 import com.example.loot_proyect.Dtos.UsuarioRegistroDTO;
+import com.example.loot_proyect.Dtos.UsuarioConsultaDTO;
 import com.example.loot_proyect.Mappers.Mapper;
 import com.example.loot_proyect.Repository.UsuarioRepository;
-import com.example.loot_proyect.Dtos.UsuarioConsultaDTO;
 import com.example.loot_proyect.model.UsuarioEntity;
 
 import java.util.List;
@@ -18,28 +17,27 @@ public class UsuarioService {
         if (usuarioDTO == null) {
             throw new Exception("UsuarioEntity null");
         }
-
         usuarioRepository.agregarUsuario(Mapper.toUsuarioEntity(usuarioDTO));
     }
 
-    public void login(UsuarioLoginDTO usuarioLoginDTO) throws Exception {
-        if(usuarioLoginDTO == null){
+    public UsuarioEntity login(UsuarioLoginDTO usuarioLoginDTO) throws Exception {
+        if (usuarioLoginDTO == null) {
             throw new Exception("Usuario No existe");
         }
-
-        if(usuarioLoginDTO.correo() == null || usuarioLoginDTO.contrasena() == null){
+        if (usuarioLoginDTO.correo() == null || usuarioLoginDTO.contrasena() == null) {
             throw new Exception("No hay datos registrados");
         }
 
         UsuarioEntity usuario = usuarioRepository.buscarCorreo(usuarioLoginDTO.correo());
 
-        if(usuario == null){
+        if (usuario == null) {
             throw new Exception("El usuario no existe");
         }
-
-        if(!usuario.getContrasena().equals(usuarioLoginDTO.contrasena())){
+        if (!usuario.getContrasena().equals(usuarioLoginDTO.contrasena())) {
             throw new Exception("Contraseña incorrecta");
         }
+
+        return usuario;
     }
 
     public List<UsuarioConsultaDTO> obtenerUsuarios() {
@@ -50,7 +48,4 @@ public class UsuarioService {
         }
         return dtos;
     }
-
-
 }
-

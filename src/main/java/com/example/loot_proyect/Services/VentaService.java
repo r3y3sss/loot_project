@@ -23,7 +23,7 @@ public class VentaService {
 
         }
         VentaEntity ventaEntity = Mapper.toVentaEntity(ventaDTO);
-        ventaRepository.eliminarVenta(ventaEntity);
+        ventaRepository.registroVenta(ventaEntity);
 
     }
     public VentaDTO ActualizarVenta(VentaDTO ventaDTO) throws Exception {

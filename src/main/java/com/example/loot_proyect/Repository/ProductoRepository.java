@@ -1,6 +1,8 @@
 package com.example.loot_proyect.Repository;
 
+import com.example.loot_proyect.controllers.LoginController;
 import com.example.loot_proyect.model.ProductoEntity;
+import com.example.loot_proyect.model.UsuarioEntity;
 import com.example.loot_proyect.utils.HibernateUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -13,6 +15,13 @@ public class ProductoRepository {
     public void AgregarProducto(ProductoEntity Producto) {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
+        if (LoginController.usuarioEntity != null) {
+            UsuarioEntity usuarioManaged = entityManager.find(
+                    UsuarioEntity.class,
+                    LoginController.usuarioEntity.getId_usuario()
+            );
+            Producto.setUsuario(usuarioManaged);
+        }
         entityManager.persist(Producto);
         entityManager.getTransaction().commit();
         entityManager.close();
@@ -40,7 +49,10 @@ public class ProductoRepository {
         EntityManagerFactory entityManagerFactory = HibernateUtils.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        List<ProductoEntity> lista=entityManager.createQuery("from ProductoEntity").getResultList();
+        List<ProductoEntity> lista = entityManager.createQuery(
+                "SELECT p FROM ProductoEntity p LEFT JOIN FETCH p.usuario", ProductoEntity.class
+        ).getResultList();
+
         entityManager.close();
         return lista;
     }
