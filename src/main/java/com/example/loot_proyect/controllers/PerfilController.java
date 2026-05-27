@@ -35,7 +35,7 @@ public class PerfilController {
             return;
         }
 
-        UsuarioEntity u = LoginController.usuarioEntity; // ← usa el usuario guardado
+        UsuarioEntity u = LoginController.usuarioEntity;
         if (u != null) {
             txtCorreoPerfil.setText(u.getCorreo());
             txtNombrePerfil.setText(u.getNombre() + " " + u.getApellido_p());
@@ -53,7 +53,7 @@ public class PerfilController {
             ((Button) event.getSource()).setText("Guardar");
             modoEdicion = true;
         } else {
-            String correoActual = LoginController.usuarioEntity.getCorreo(); // ← correo real
+            String correoActual = LoginController.usuarioEntity.getCorreo();
             String nuevoNombre = txtNombrePerfil.getText().trim();
             String nuevoTelefono = txtTelefonoPerfil.getText().trim();
 
