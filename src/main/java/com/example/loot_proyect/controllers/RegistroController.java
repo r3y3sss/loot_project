@@ -1,5 +1,6 @@
 package com.example.loot_proyect.controllers;
 
+import com.example.loot_proyect.Dtos.UsuarioDTO;
 import com.example.loot_proyect.Dtos.UsuarioRegistroDTO;
 import com.example.loot_proyect.Services.UsuarioService;
 import javafx.event.ActionEvent;
@@ -9,21 +10,36 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
+
+import static java.time.LocalDate.*;
 
 public class RegistroController {
 
-    @FXML private TextField CorreoRegistro;
-    @FXML private TextField NombreRegistro;
-    @FXML private TextField ApellidoPRegistro;
-    @FXML private TextField ApellidoMRegistro;
-    @FXML private PasswordField ContraseñaRegistro;
-    @FXML private PasswordField ConfirmarContraseñaRegistro;
-    @FXML private TextField NumeroRegistro;
-    @FXML private TextField DireccionRegistro;
+    @FXML
+    private TextField CorreoRegistro;
+    @FXML
+    private TextField NombreRegistro;
+    @FXML
+    private TextField ApellidoPRegistro;
+    @FXML
+    private TextField ApellidoMRegistro;
+    @FXML
+    private PasswordField ContraseñaRegistro;
+    @FXML
+    private PasswordField ConfirmarContraseñaRegistro;
+    @FXML
+    private TextField NumeroRegistro;
+    @FXML
+    private TextField DireccionRegistro;
+    @FXML
+    private DatePicker FechaRegistro;
     private UsuarioService usuarioService = new UsuarioService();
 
     @FXML
@@ -36,7 +52,11 @@ public class RegistroController {
         String confirmar = ConfirmarContraseñaRegistro.getText().trim();
         String telefono = NumeroRegistro.getText().trim();
         String direccion = DireccionRegistro.getText().trim();
+        LocalDate validaredad = FechaRegistro.getValue();
 
+        if(validarEdad() == false){
+            return;
+        }
         if (correo.isEmpty() || nombre.isEmpty() || contra.isEmpty() || telefono.isEmpty()) {
             mostrarAlerta("Campos Vacíos", "Por favor rellena todos los campos.");
             return;
@@ -57,6 +77,7 @@ public class RegistroController {
         } catch (Exception e) {
             mostrarAlerta("Error", "No se pudo registrar: " + e.getMessage());
         }
+
     }
 
     private void regresarAlLogin(ActionEvent event) {
@@ -81,4 +102,32 @@ public class RegistroController {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+
+
+
+    private boolean validarEdad() {
+
+        LocalDate fecha = FechaRegistro.getValue();
+        if (fecha == null || fecha.isAfter(LocalDate.now())) {
+            mostrarAlerta(" ERES MENOR DE EDAD, NO PUEDES REGISTRARTE");
+            return false;
+        }
+        if(Period.between(fecha,LocalDate.now()).getYears()<18){
+            mostrarAlerta("La Fecha no es valida debe ser mayor de edad");
+            return false;
+
+        }
+
+        return true;
+    }
+
+    private void mostrarAlerta(String mjs) {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setTitle("Advertencia");
+        a.setHeaderText(null);
+        a.setContentText(mjs);
+        a.showAndWait();
+    }
+
+
 }

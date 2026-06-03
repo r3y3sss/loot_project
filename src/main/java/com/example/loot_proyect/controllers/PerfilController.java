@@ -74,7 +74,7 @@ public class PerfilController {
                 usuario.setNumTelefono(nuevoTelefono);
                 em.getTransaction().commit();
 
-                // ← actualiza también el entity en memoria
+
                 LoginController.usuarioEntity.setNombre(nuevoNombre);
                 LoginController.usuarioEntity.setNumTelefono(nuevoTelefono);
                 LoginController.usuarioLogueado = nuevoNombre;
@@ -119,7 +119,7 @@ public class PerfilController {
     void btnCerrarSesionClick(ActionEvent event) {
         LoginController.usuarioLogueado = "";
         LoginController.telefonoLogueado = "";
-        LoginController.usuarioEntity = null; // ← limpia todo al cerrar sesión
+        LoginController.usuarioEntity = null;
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/example/loot_proyect/views/login.fxml")

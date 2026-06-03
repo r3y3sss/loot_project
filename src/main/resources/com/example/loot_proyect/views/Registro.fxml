@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/estilos_loot.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loot_proyect.controllers.RegistroController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/estilos_loot.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loot_proyect.controllers.RegistroController">
     <children>
         <TextField fx:id="CorreoRegistro" layoutX="13.0" layoutY="35.0" prefHeight="30.0" prefWidth="275.0" promptText="Correo">
             <font>
@@ -25,7 +25,7 @@
             </font>
         </Label>
 
-        <Button layoutX="231.0" layoutY="331.0" mnemonicParsing="false" onAction="#id_confirmar" styleClass="boton-loot" text="CONFIMAR REGISTRO" />
+        <Button layoutX="201.0" layoutY="333.0" mnemonicParsing="false" onAction="#id_confirmar" styleClass="boton-loot" text="CONFIMAR REGISTRO" />
 
         <Separator layoutX="9.0" layoutY="73.0" prefHeight="4.0" prefWidth="578.0" />
         <Separator layoutX="2.0" layoutY="32.0" prefHeight="3.0" prefWidth="574.0">

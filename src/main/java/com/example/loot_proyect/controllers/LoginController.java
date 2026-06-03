@@ -48,7 +48,7 @@ public class LoginController {
             UsuarioEntity usuario = usuarioService.login(loginDTO);
             usuarioLogueado = usuario.getNombre() + " " + usuario.getApellido_p();
             telefonoLogueado = usuario.getNumTelefono();
-            usuarioEntity = usuario; // ← guarda el usuario completo
+            usuarioEntity = usuario;
             irAlCatalogo(event);
         } catch (Exception e) {
             mostrarAlerta("Acceso Denegado", e.getMessage());
@@ -56,7 +56,7 @@ public class LoginController {
     }
 
     @FXML
-    void NOTIENESCONTRA(ActionEvent event) {
+  public void NOTIENESCONTRA(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/example/loot_proyect/views/Registro.fxml")
