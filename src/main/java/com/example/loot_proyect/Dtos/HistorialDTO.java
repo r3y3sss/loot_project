@@ -1,4 +1,4 @@
 package com.example.loot_proyect.Dtos;
 
-public class HistorialDTO {
+public record HistorialDTO (String fechaProducto, String nombreProducto, Double precio){
 }

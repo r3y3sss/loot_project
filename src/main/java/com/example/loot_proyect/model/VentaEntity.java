@@ -40,15 +40,12 @@ public class VentaEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    public UsuarioEntity getUsuario() {
-        return usuario;
-    }
+    public UsuarioEntity getUsuario(){return usuario;}
+    public void setUsuario(UsuarioEntity usuario) {this.usuario = usuario;}
 
-    public void setUsuario(UsuarioEntity usuario) {
-        this.usuario = usuario;
-    }
 
-    @OneToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_producto")
     public ProductoEntity getProducto() {
         return producto;

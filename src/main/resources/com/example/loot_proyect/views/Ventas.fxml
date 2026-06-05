@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #f4f4f9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loot_proyect.controllers.MenuVentasController">
+<VBox prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #f4f4f9;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loot_proyect.controllers.MenuVentasController">
     <children>
         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 2);">
             <children>
@@ -42,8 +42,8 @@
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txtBuscar" prefWidth="250.0" promptText="¿Qué artículo deseas?" />
-                <Button mnemonicParsing="false" text="Aceptar" />
+                <TextField fx:id="buscador" prefWidth="250.0" promptText="¿Qué artículo deseas?" />
+                <Button fx:id="buscarVentas" mnemonicParsing="false" text="Aceptar" />
             </children>
             <padding>
                 <Insets left="20.0" />

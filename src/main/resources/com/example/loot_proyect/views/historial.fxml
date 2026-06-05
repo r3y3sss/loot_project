@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="500.0" styleClass="fondo-azul" stylesheets="@../styles/estilos_loot.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loot_proyect.controllers.historialController">
+   <children>
+      <TableView fx:id="tblHistory" layoutY="67.0" minHeight="800.0" minWidth="600.0" prefHeight="600.0" prefWidth="800.0" styleClass="text-field">
+        <columns>
+          <TableColumn fx:id="colFecha" prefWidth="153.5999755859375" text="Fecha" />
+          <TableColumn fx:id="colProducto" prefWidth="267.20001220703125" text="Producto" />
+            <TableColumn fx:id="colPrecio" prefWidth="108.00006103515625" text="Precio" />
+        </columns>
+      </TableView>
+      <Button layoutX="693.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnRegresar" styleClass="boton-loot" text="Salir" />
+   </children>
+</AnchorPane>

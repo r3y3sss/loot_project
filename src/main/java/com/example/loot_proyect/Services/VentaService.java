@@ -1,10 +1,13 @@
 package com.example.loot_proyect.Services;
 
 import com.example.loot_proyect.Dtos.CategoriaDTO;
+import com.example.loot_proyect.Dtos.HistorialDTO;
 import com.example.loot_proyect.Dtos.VentaDTO;
 import com.example.loot_proyect.Mappers.Mapper;
 import com.example.loot_proyect.Repository.VentaRepository;
 import com.example.loot_proyect.model.VentaEntity;
+
+import java.util.List;
 
 public class VentaService {
 
@@ -35,6 +38,19 @@ public class VentaService {
         ventaRepository.actualizarVenta(ventaEntity);
 
         return ventaDTO;
+    }
+
+    public List<HistorialDTO> obtenerHistorialUsuario(int idUsuario) {
+
+        List<VentaEntity> ventas = ventaRepository.obtenerVentasPorUsuario(idUsuario);
+
+        return ventas.stream()
+                .map(v -> new HistorialDTO(
+                        v.getFecha_venta().toString(),
+                        v.getProducto().getNombre(),
+                        v.getPrecio_venta()
+                ))
+                .toList();
     }
 
 }

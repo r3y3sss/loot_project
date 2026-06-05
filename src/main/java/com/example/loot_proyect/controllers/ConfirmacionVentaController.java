@@ -37,7 +37,8 @@ public class ConfirmacionVentaController {
                     0,
                     LocalDate.now(),
                     1,
-                    (double) productoActual.precio()
+                    (double) productoActual.precio(),
+                    productoActual.id_producto()
             );
             ventaService.GuardarVenta(ventaDTO);
 

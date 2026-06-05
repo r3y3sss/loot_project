@@ -112,7 +112,8 @@ public class Mapper {
                 entity.getId_venta(),
                 entity.getFecha_venta(),
                 entity.getCantidad_producto(),
-                entity.getPrecio_venta()
+                entity.getPrecio_venta(),
+                entity.getProducto().getId_producto()
         );
     }
     public static VentaEntity toVentaEntity (VentaDTO dto){
@@ -123,6 +124,10 @@ public class Mapper {
         entity.setFecha_venta(dto.fecha_venta());
         entity.setCantidad_producto(dto.cantidad_producto());
         entity.setPrecio_venta(dto.precio_venta());
+        ProductoEntity producto = new ProductoEntity();
+        producto.setId_producto(dto.id_producto());
+
+        entity.setProducto(producto);
 
         return entity;
     }

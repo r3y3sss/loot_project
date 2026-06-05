@@ -2,6 +2,7 @@ package com.example.loot_proyect.controllers;
 
 import com.example.loot_proyect.Dtos.ProductoDTO;
 import com.example.loot_proyect.Services.ProductoService;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -20,8 +22,37 @@ import java.util.List;
 public class MenuVentasController {
 
     @FXML private VBox contenedorCatalogo;
+    @FXML private TextField BuscarVentas;
 
     private ProductoService productoService = new ProductoService();
+
+    public void initialize(){
+        actualizacion();
+    }
+
+
+    private void actualizacion() {
+        Thread hilo = new Thread(() -> {
+            while (true){
+                try {
+                    List<ProductoDTO> productos = productoService.buscarProducto();
+                    Platform.runLater(() -> {
+                        if (contenedorCatalogo != null) {
+                            contenedorCatalogo.getChildren().clear();
+                            for (ProductoDTO producto : productos){
+                                agregarProductoAlCatalogo(producto);
+                            }
+                        }
+                    });
+                    Thread.sleep(2000);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        hilo.setDaemon(true);
+        hilo.start();
+    }
 
     public void cargarProductosRegistrados() {
         if (contenedorCatalogo != null) {
@@ -114,5 +145,4 @@ public class MenuVentasController {
             stage.show();
         } catch (Exception e) { e.printStackTrace(); }
     }
-    public void
 }

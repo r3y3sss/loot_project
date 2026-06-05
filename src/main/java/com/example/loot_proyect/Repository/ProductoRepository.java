@@ -25,9 +25,8 @@ public class ProductoRepository {
         entityManager.persist(Producto);
         entityManager.getTransaction().commit();
         entityManager.close();
-
-
     }
+
     public void EliminarProducto(ProductoEntity Producto) {
         EntityManager entityManager= HibernateUtils.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
@@ -36,6 +35,7 @@ public class ProductoRepository {
         entityManager.close();
 
     }
+
     public void ActualizarProducto(ProductoEntity Producto) {
         EntityManagerFactory entityManagerFactory = HibernateUtils.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -62,6 +62,7 @@ public class ProductoRepository {
         ProductoEntity productoEntity = entityManager.find(ProductoEntity.class, idProducto);
         entityManager.close();
         return productoEntity;
+
     }
 }
 

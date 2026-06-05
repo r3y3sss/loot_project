@@ -3,6 +3,7 @@ package com.example.loot_proyect.Services;
 import com.example.loot_proyect.Repository.ProductoRepository;
 import com.example.loot_proyect.Mappers.Mapper;
 import com.example.loot_proyect.Dtos.ProductoDTO;
+import com.example.loot_proyect.model.ProductoEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,13 +12,14 @@ public class ProductoService {
 
     private ProductoRepository productoRepository = new ProductoRepository();
 
-    public void agregarProducto(ProductoDTO dto) {
+    public ProductoEntity agregarProducto(ProductoDTO dto) {
         productoRepository.AgregarProducto(Mapper.toProductoEntity(dto));
+        return null;
     }
 
-    public void actualizarProducto(ProductoDTO dto) {
+    /*public void actualizarProducto(ProductoDTO dto) {
         productoRepository.ActualizarProducto(Mapper.toProductoEntity(dto));
-    }
+    }*/
 
     public void eliminarProducto(ProductoDTO dto) {
         productoRepository.EliminarProducto(Mapper.toProductoEntity(dto));

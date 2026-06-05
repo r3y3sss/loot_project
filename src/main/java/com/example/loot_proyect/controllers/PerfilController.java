@@ -22,6 +22,7 @@ public class PerfilController {
     @FXML private TextField txtNombrePerfil;
     @FXML private TextField txtTelefonoPerfil;
     @FXML private Button btnEditar;
+    @FXML private Button btnHistorial;
 
     private UsuarioService usuarioService = new UsuarioService();
     private boolean modoEdicion = false;
@@ -128,6 +129,23 @@ public class PerfilController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 600, 400));
             stage.setTitle("Marketplace - Inicio de Sesión");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnHistory(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/loot_proyect/views/historial.fxml")
+            );
+            Parent root = loader.load();
+            historialController controladorHistorial = loader.getController();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 800, 550));
+            stage.setTitle("Historial");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
